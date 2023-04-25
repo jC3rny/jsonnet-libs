@@ -1,2 +1,3 @@
-# bitnami-labs
-Bitnami Labs (libsonnet)
+# Bitnami Labs (libsonnet)
+
+This repository contains artifacts of the Jsonnet libraries derived from Bitnami's custom resources.
