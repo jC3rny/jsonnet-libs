@@ -18,7 +18,7 @@ function(params) {
       labels: ss.config.commonLabels,
       name:
         if !ss.config.disableNameSuffixHash then
-          '%s-%s-%s' % [ss.config.name, ss.config.nameSuffix, ss.config.nameSuffixHash]
+          '%s-%s-%s' % [ss.config.name, ss.config.nameSuffix, std.substr(std.md5(std.toString(ss.checksum.md5)), 0, 10)]
         else
           '%s-%s' % [ss.config.name, ss.config.nameSuffix],
       namespace: ss.config.namespace,
@@ -35,6 +35,10 @@ function(params) {
         type: ss.config.type
       },
     },
+  },
+
+  checksum:: {
+    md5: '%s' % [if std.length(std.toString(ss.config.encryptedData)) > 0 then std.md5(std.toString(ss.config.encryptedData)) else null],
   },
 
   commonAnnotations:: ss.config.commonAnnotations + { [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/' + ss.config.scope]: 'true', }

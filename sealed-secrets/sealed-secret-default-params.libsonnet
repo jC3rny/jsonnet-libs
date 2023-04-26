@@ -6,7 +6,6 @@
   disableNameSuffixHash: true,
   name: error 'must provide name',
   nameSuffix: 'sealed',
-  nameSuffixHash: '%s' % [if !defaults.disableNameSuffixHash then std.substr(std.md5(std.toString(defaults.encryptedData)), 0, 10) else null],
   namespace: error 'must provide namespace',
   // https://github.com/bitnami-labs/sealed-secrets#scopes
   // These are the possible scopes:
