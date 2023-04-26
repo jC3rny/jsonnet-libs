@@ -14,7 +14,7 @@ function(params) {
     apiVersion: 'bitnami.com/v1alpha1',
     kind: 'SealedSecret',
     metadata: {
-      annotations: ss.config.commonAnnotations + { [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/namespace-wide']: 'true', },
+      annotations: ss.commonAnnotations,
       labels: ss.config.commonLabels,
       name:
         if !ss.config.disableNameSuffixHash then
@@ -27,9 +27,8 @@ function(params) {
       encryptedData: ss.config.encryptedData,
       template: {
         metadata: {
-          annotations: ss.config.commonAnnotations + {
+          annotations: ss.commonAnnotations + {
             'sealedsecrets.bitnami.com/managed': 'true',
-            [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/namespace-wide']: 'true',
           },
           labels: ss.config.commonLabels,
         },
@@ -37,4 +36,6 @@ function(params) {
       },
     },
   },
+
+  commonAnnotations:: ss.config.commonAnnotations + { [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/' + ss.config.scope]: 'true', }
 }
