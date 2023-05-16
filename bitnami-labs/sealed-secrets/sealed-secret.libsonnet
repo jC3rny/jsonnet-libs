@@ -1,3 +1,4 @@
+// sources
 local defaults = import 'sealed-secrets/sealed-secret-default-params.libsonnet';
 
 function(params) {
@@ -27,12 +28,12 @@ function(params) {
       encryptedData: ss.config.encryptedData,
       template: {
         metadata: {
-          annotations: ss.commonAnnotations + {
+          annotations: ss.commonAnnotations {
             'sealedsecrets.bitnami.com/managed': 'true',
           },
           labels: ss.config.commonLabels,
         },
-        type: ss.config.type
+        type: ss.config.type,
       },
     },
   },
@@ -41,5 +42,7 @@ function(params) {
     md5: '%s' % [if std.length(std.toString(ss.config.encryptedData)) > 0 then std.md5(std.toString(ss.config.encryptedData)) else null],
   },
 
-  commonAnnotations:: ss.config.commonAnnotations + { [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/' + ss.config.scope]: 'true', }
+  commonAnnotations:: ss.config.commonAnnotations {
+    [if std.length(ss.config.scope) > 0 then 'sealedsecrets.bitnami.com/' + ss.config.scope]: 'true',
+  },
 }
