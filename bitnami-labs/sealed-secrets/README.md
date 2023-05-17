@@ -20,7 +20,7 @@ Update `jsonnetfile.json` file
           "subdir": "bitnami-labs/sealed-secrets"
         }
       },
-      "version": "bitnami-labs/sealed-secrets-v0.2.0"
+      "version": "bitnami-labs/sealed-secrets-v0.2.1"
     }
   ],
   "legacyImports": true
